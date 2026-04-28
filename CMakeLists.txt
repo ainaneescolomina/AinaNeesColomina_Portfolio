@@ -1,57 +1,65 @@
 cmake_minimum_required(VERSION 3.26)
 project(Portfolio)
 
-# Emscripten only
-if(NOT EMSCRIPTEN)
-  message(FATAL_ERROR "This project is configured for Emscripten only.")
-endif()
+include(FetchContent)
 
-message("Using Emscripten!")
-
-set(TARGET_NAME portfolio_web)
-
-# =========================
-# Portfolio engine library
-# =========================
-add_library(portfolio_engine STATIC
-  src/engine.cpp
-)
-
-target_compile_features(portfolio_engine PUBLIC cxx_std_20)
+set(TARGET_NAME portfolio)
 
 # =========================
 # Executable
 # =========================
 add_executable(${TARGET_NAME}
-  web/index.html
+  src/engine.cpp
 )
 
-target_link_libraries(${TARGET_NAME} PRIVATE portfolio_engine)
 target_compile_features(${TARGET_NAME} PUBLIC cxx_std_20)
 
 # =========================
-# Emscripten settings
+# SDL3 (DESKTOP ONLY)
 # =========================
-set(EMSCRIPTEN_COMPILE_FLAGS "-g")
-set(EMSCRIPTEN_LINK_FLAGS
-  "-sUSE_FREETYPE=1 \
-   -sUSE_HARFBUZZ=1 \
-   -sALLOW_MEMORY_GROWTH \
-   --preload-file \"${CMAKE_SOURCE_DIR}/Data@/\" \
-   -g"
-)
+if(NOT EMSCRIPTEN)
+  FetchContent_Declare(
+    SDL3
+    GIT_REPOSITORY https://github.com/libsdl-org/SDL.git
+    GIT_TAG release-3.4.0
+    GIT_SHALLOW TRUE
+  )
+  FetchContent_MakeAvailable(SDL3)
 
-set_target_properties(${TARGET_NAME} PROPERTIES
-  COMPILE_FLAGS "${EMSCRIPTEN_COMPILE_FLAGS}"
-  LINK_FLAGS "${EMSCRIPTEN_LINK_FLAGS}"
-)
+  target_link_libraries(${TARGET_NAME} PRIVATE SDL3::SDL3)
+endif()
 
-# Copy web template files
-add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
-  COMMAND "${CMAKE_COMMAND}" -E copy_directory
-  "${CMAKE_CURRENT_SOURCE_DIR}/web"
-  "$<TARGET_FILE_DIR:${TARGET_NAME}>/"
-)
+# =========================
+# EMSCRIPTEN BUILD
+# =========================
+if(EMSCRIPTEN)
+  message(STATUS "Building for Web")
 
-# Generate HTML output
-set(CMAKE_EXECUTABLE_SUFFIX ".html")
+  set_target_properties(${TARGET_NAME} PROPERTIES
+    SUFFIX ".html"
+  )
+
+  target_link_options(${TARGET_NAME} PRIVATE
+    "-sUSE_SDL=3"
+    "-sALLOW_MEMORY_GROWTH"
+    "--preload-file" "${CMAKE_SOURCE_DIR}/resources@/resources"
+  )
+
+  add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_SOURCE_DIR}/web
+    $<TARGET_FILE_DIR:${TARGET_NAME}>
+  )
+
+# =========================
+# DESKTOP BUILD
+# =========================
+else()
+  message(STATUS "Building for Desktop")
+
+  add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_SOURCE_DIR}/resources
+    $<TARGET_FILE_DIR:${TARGET_NAME}>/resources
+  )
+endif()
