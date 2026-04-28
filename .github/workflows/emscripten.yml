@@ -7,7 +7,6 @@ on:
       - main
     paths-ignore:
       - '**/README.md'
-      - '.github/workflows/*'
 
 permissions:
   contents: read
@@ -22,10 +21,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - uses: actions/cache@v4
+      - name: Ensure resources folder exists
+        run: mkdir -p resources
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
         with:
-          path: ./build-web/_deps
-          key: build-emscripten-deps
+          path: build-web/_deps
+          key: emscripten-deps-${{ hashFiles('CMakeLists.txt') }}
 
       - name: Setup Emscripten
         uses: mymindstorm/setup-emsdk@v14
@@ -33,30 +36,28 @@ jobs:
           version: latest
           actions-cache-folder: emsdk-cache
 
-      - name: Verify Emscripten
+      - name: Verify tools
         run: |
           emcc --version
           cmake --version
 
       - name: Configure (CMake)
         run: |
-          mkdir -p build-web
-          cd build-web
-          emcmake cmake \
-            -DCMAKE_BUILD_TYPE=Release \
-            -DSDL_TEST=OFF \
-            ..
+          emcmake cmake -B build-web -S . -DCMAKE_BUILD_TYPE=Release
 
       - name: Build
         run: |
-          cd build-web
-          cmake --build . --config Release
+          cmake --build build-web --config Release
 
       - name: Prepare Artifact
         run: |
           mkdir -p dist
-          cp build-web/minigin_web.* dist/
-          cp web/*.html dist/
+
+          # Copy Emscripten output
+          cp build-web/portfolio.* dist/ || true
+
+          # Copy your custom web files (html/css/js)
+          cp -r web/* dist/ || true
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
@@ -69,6 +70,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
