@@ -5,20 +5,15 @@ include(FetchContent)
 
 set(TARGET_NAME portfolio)
 
-# =========================
 # Executable
-# =========================
 add_executable(${TARGET_NAME}
   src/main.cpp
-  src/Engine/Engine.cpp
   src/Commands/CommandManager.cpp
-)
+  src/Commands/ProjectManager.cpp)
 
 target_compile_features(${TARGET_NAME} PUBLIC cxx_std_20)
 
-# =========================
-# SDL3 (DESKTOP ONLY)
-# =========================
+# SDL3
 if(NOT EMSCRIPTEN)
   FetchContent_Declare(
     SDL3
@@ -31,9 +26,7 @@ if(NOT EMSCRIPTEN)
   target_link_libraries(${TARGET_NAME} PRIVATE SDL3::SDL3)
 endif()
 
-# =========================
-# EMSCRIPTEN BUILD
-# =========================
+# Emscripten Build
 if(EMSCRIPTEN)
   message(STATUS "Building for Web")
 
@@ -56,9 +49,7 @@ target_link_options(${TARGET_NAME} PRIVATE
     $<TARGET_FILE_DIR:${TARGET_NAME}>
   )
 
-# =========================
-# DESKTOP BUILD
-# =========================
+# Desktop Build
 else()
   message(STATUS "Building for Desktop")
 

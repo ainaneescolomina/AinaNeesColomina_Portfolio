@@ -1,5 +1,5 @@
 #include "CommandManager.h"
-#include "../Engine/Engine.h"
+#include "../Utils/Utils.h"
 
 std::string CommandManager::handle(const std::string& cmd, State& state) {
 
@@ -129,29 +129,32 @@ std::string CommandManager::handleContact(const std::string& cmd, State& state)
 
 std::string CommandManager::handleProjects(const std::string& cmd, State& state)
 {
-    if (cmd == "help") {
-        return header("PROJECTS") +
-            "Commands:\n"
-            "- list\n"
-            "- open <name>\n"
-            "- back";
-    }
-
     if (cmd == "list") {
-        return header("PROJECT LIST") +
-            "1. engine\n"
-            "2. dungeonCrawler\n"
-            "3. consoleSystem";
+        std::string out = header("PROJECT LIST");
+
+        for (const auto& p : projectManager.getProjects()) {
+            out += "- " + p.name + "\n";
+        }
+
+        return out;
     }
 
-    if (cmd.rfind("open", 0) == 0) {
-        state.context = Context::PROJECT_VIEW;
+    if (cmd.rfind("open", 0) == 0)
+    {
+        std::string name = cmd.substr(5);
 
-        return header("PROJECT") +
-            "Opening project...\n"
-            "Loading assets...\n"
-            "Done.\n\n"
-            "Type 'back' to exit project view";
+        const Project* project = projectManager.findProject(name);
+
+        if (!project)
+            return "Project not found.";
+
+        state.context = Context::PROJECT_VIEW;
+        state.currentProject = name;
+
+        return header("PROJECT OPENED") +
+            "Name: " + project->name + "\n" +
+            "Description: " + project->description + "\n" +
+            "GitHub: " + project->githubLink;
     }
 
     if (cmd == "back") {
@@ -164,28 +167,31 @@ std::string CommandManager::handleProjects(const std::string& cmd, State& state)
 
 std::string CommandManager::handleProjectView(const std::string& cmd, State& state)
 {
+    const Project* project = projectManager.findProject(state.currentProject);
+
+    if (!project)
+        return "No project selected.";
+
     if (cmd == "help") {
         return header("PROJECT VIEW") +
-            "Commands:\n"
             "- info\n"
             "- back";
     }
 
     if (cmd == "info") {
         return header("PROJECT INFO") +
-            "This is a simulated project window\n"
-            "In a real version this would show:\n"
-            "- screenshots\n"
-            "- github link\n"
-            "- description";
+            "Name: " + project->name + "\n\n" +
+            "Description:\n" + project->description + "\n\n" +
+            "GitHub:\n" + project->githubLink;
     }
 
     if (cmd == "back") {
         state.context = Context::PROJECTS;
+        state.currentProject.clear();
         return "Returning to PROJECTS...";
     }
 
-    return "You are inside a project. Type 'help' or 'back'.";
+    return "Unknown command in PROJECT VIEW.";
 }
 
 std::string CommandManager::header(const std::string& title) {
