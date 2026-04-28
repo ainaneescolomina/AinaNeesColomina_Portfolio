@@ -1,0 +1,23 @@
+body {
+  background: black;
+  color: #00ff00;
+  font-family: monospace;
+  margin: 0;
+}
+
+#console {
+  padding: 20px;
+}
+
+#input-line {
+  display: flex;
+}
+
+input {
+  background: black;
+  border: none;
+  color: #00ff00;
+  outline: none;
+  font-family: monospace;
+  flex: 1;
+}
