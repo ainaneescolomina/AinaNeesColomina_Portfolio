@@ -35,15 +35,18 @@ endif()
 if(EMSCRIPTEN)
   message(STATUS "Building for Web")
 
-  set_target_properties(${TARGET_NAME} PROPERTIES
-    SUFFIX ".html"
-  )
+set_target_properties(${TARGET_NAME} PROPERTIES
+  SUFFIX ".js"
+)
 
-  target_link_options(${TARGET_NAME} PRIVATE
-    "-sUSE_SDL=3"
+target_link_options(${TARGET_NAME} PRIVATE
     "-sALLOW_MEMORY_GROWTH"
+
+    "-sEXPORTED_FUNCTIONS=['_process_command']"
+    "-sEXPORTED_RUNTIME_METHODS=['ccall']"
+
     "--preload-file" "${CMAKE_SOURCE_DIR}/resources@/resources"
-  )
+)
 
   add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory

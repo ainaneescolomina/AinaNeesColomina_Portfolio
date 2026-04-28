@@ -11,13 +11,31 @@ const char* process_command(const char* input) {
     std::string cmd(input);
 
     if (cmd == "help") {
-        result = "Commands: help, about";
+        result =
+            "HELP:\n"
+            "- help : show commands\n"
+            "- about : engine info\n"
+            "- projects : list projects";
     }
+
     else if (cmd == "about") {
-        result = "Handled by C++ engine";
+        result =
+            "ABOUT:\n"
+            "Retro Console Engine\n"
+            "C++ + WebAssembly + JS UI\n"
+            "Portfolio project";
     }
+
+    else if (cmd == "projects") {
+        result =
+            "PROJECTS:\n"
+            "1. DungeonCrawler\n"
+            "2. SpaceShooter\n"
+            "3. DevConsoleSystem";
+    }
+
     else {
-        result = "Unknown command";
+        result = "Unknown command. Type 'help'";
     }
 
     return result.c_str();

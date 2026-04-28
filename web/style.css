@@ -1,8 +1,9 @@
 body {
-  background: black;
-  color: #00ff00;
-  font-family: monospace;
-  margin: 0;
+    background: black;
+    color: #00ff00;
+    font-family: monospace;
+    text-shadow: 0 0 5px #00ff00;
+    margin: 0;
 }
 
 #console {
@@ -20,4 +21,18 @@ input {
   outline: none;
   font-family: monospace;
   flex: 1;
+}
+
+#output {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+#output div {
+    margin-bottom: 4px;
+}
+
+#input-line span {
+    margin-right: 8px;
+    color: #00aa00;
 }
