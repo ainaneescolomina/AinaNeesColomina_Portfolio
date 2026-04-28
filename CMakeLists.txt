@@ -9,7 +9,9 @@ set(TARGET_NAME portfolio)
 # Executable
 # =========================
 add_executable(${TARGET_NAME}
-  src/engine.cpp
+  src/main.cpp
+  src/Engine/Engine.cpp
+  src/Commands/CommandManager.cpp
 )
 
 target_compile_features(${TARGET_NAME} PUBLIC cxx_std_20)
