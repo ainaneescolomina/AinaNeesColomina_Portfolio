@@ -2,7 +2,10 @@ const input = document.getElementById("input");
 const output = document.getElementById("output");
 
 function print(text) {
-    output.innerHTML += `<div>${text}</div>`;
+    text.split("\n").forEach(line => {
+        output.innerHTML += `<div>${line}</div>`;
+    });
+
     output.scrollTop = output.scrollHeight;
 }
 
