@@ -7,7 +7,7 @@ function print(text) {
 
 function handleCommand(cmd) {
   const result = Module.ccall(
-    "process_command",   // C++ function name
+    "process_command",   // c++ function
     "string",            // return type
     ["string"],          // input type
     [cmd]                // arguments

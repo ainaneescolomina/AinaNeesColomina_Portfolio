@@ -1,11 +1,12 @@
+#include <iostream>
 #include <string>
-#include <emscripten/emscripten.h>
 
 extern "C" {
+    const char* process_command(const char* input);
+}
 
 static std::string result;
 
-EMSCRIPTEN_KEEPALIVE
 const char* process_command(const char* input) {
     std::string cmd(input);
 
@@ -22,4 +23,9 @@ const char* process_command(const char* input) {
     return result.c_str();
 }
 
+#ifndef __EMSCRIPTEN__
+int main() {
+    std::cout << process_command("help") << std::endl;
+    return 0;
 }
+#endif
