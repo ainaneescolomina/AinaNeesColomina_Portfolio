@@ -20,18 +20,17 @@ body {
 
 #preview {
     width: 40%;
-    border-left: 1px solid #00aa00;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-    #preview img {
-        max-width: 90%;
-        max-height: 90%;
-        display: none;
-        box-shadow: 0 0 20px #00ff00;
-    }
+#preview img {
+    max-width: 90%;
+    max-height: 90%;
+    display: none;
+    box-shadow: 0 0 20px #00ff00;
+}
 
 #input-line {
     display: flex;
@@ -57,10 +56,10 @@ input {
     margin-bottom: 4px;
 }
 
-/*#input-line span {
+#input-line span {
     margin-right: 8px;
     color: #00aa00;
-}*/
+}
 
 input:focus {
     text-shadow: 0 0 8px #00ff00;
