@@ -47,10 +47,10 @@ function openProjectWindow(name) {
     img.style.opacity = 0.2;
 
     setTimeout(() => {
-        img.src = "/AinaNeesColomina_Portfolio/resources/" + name + ".png";
+        img.src = "resources/" + name + ".png";
         img.style.display = "block";
         img.style.opacity = 1;
-    }, 150);
+    }, 1);
 }
 
 input.addEventListener("keydown", function (e) {
