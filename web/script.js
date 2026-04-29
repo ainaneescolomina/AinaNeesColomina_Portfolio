@@ -3,7 +3,7 @@ const output = document.getElementById("output");
 
 function print(text) {
     text.split("\n").forEach(line => {
-        output.innerHTML += `<div>${line}</div>`;
+        div.innerHTML = formatLine(line);
     });
 
     output.scrollTop = output.scrollHeight;
