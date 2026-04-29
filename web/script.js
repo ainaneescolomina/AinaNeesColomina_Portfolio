@@ -47,7 +47,7 @@ function openProjectWindow(name) {
     img.style.opacity = 0.2;
 
     setTimeout(() => {
-        img.src = `./resources/${name}.png`;
+        img.src = "/AinaNeesColomina_Portfolio/resources/" + name + ".png";
         img.style.display = "block";
         img.style.opacity = 1;
     }, 150);
