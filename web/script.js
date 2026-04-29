@@ -4,9 +4,7 @@ const output = document.getElementById("output");
 function print(text) {
     text.split("\n").forEach(line => {
         const div = document.createElement("div");
-
         div.innerHTML = formatLine(line);
-
         output.appendChild(div);
     });
 
@@ -32,7 +30,6 @@ function handleCommand(cmd) {
 }
 
 function handleOutput(text) {
-    // 1. detect window trigger
     const windowMatch = text.match(/\[OPEN_WINDOW:(.+?)\]/);
 
     if (windowMatch) {
@@ -40,7 +37,6 @@ function handleOutput(text) {
         openProjectWindow(projectName);
     }
 
-    // 2. still print everything in logs (cleaned)
     const cleaned = text.replace(/\[OPEN_WINDOW:.*?\]/, "");
     print(cleaned);
 }
@@ -48,13 +44,13 @@ function handleOutput(text) {
 function openProjectWindow(name) {
     const img = document.getElementById("preview-img");
 
-    img.style.opacity = 0;
+    img.style.opacity = 0.2;
 
     setTimeout(() => {
         img.src = `resources/${name}.png`;
         img.style.display = "block";
         img.style.opacity = 1;
-    }, 120);
+    }, 150);
 }
 
 input.addEventListener("keydown", function (e) {

@@ -26,14 +26,12 @@ body {
     justify-content: center;
 }
 
-#preview img {
-    max-width: 90%;
-    max-height: 90%;
-    display: none;
-    box-shadow: 0 0 20px #00ff00;
-    transition: opacity 0.2s ease;
-    opacity: 0;
-}
+    #preview img {
+        max-width: 90%;
+        max-height: 90%;
+        display: none;
+        box-shadow: 0 0 20px #00ff00;
+    }
 
 #input-line {
     display: flex;
@@ -66,14 +64,4 @@ input {
 
 input:focus {
     text-shadow: 0 0 8px #00ff00;
-}
-
-a {
-    color: #00ff88;
-    text-decoration: none;
-}
-
-a:hover {
-    text-shadow: 0 0 10px #00ff88;
-    text-decoration: underline;
 }
