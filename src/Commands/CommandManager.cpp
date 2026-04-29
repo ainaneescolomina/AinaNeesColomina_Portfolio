@@ -154,7 +154,8 @@ std::string CommandManager::handleProjects(const std::string& cmd, State& state)
         return header("PROJECT OPENED") +
             "Name: " + project->name + "\n" +
             "Description: " + project->description + "\n" +
-            "GitHub: " + project->githubLink;
+            "GitHub: " + project->githubLink +
+            "\n[OPEN_WINDOW:" + project->name + "]";
     }
 
     if (cmd == "back") {
