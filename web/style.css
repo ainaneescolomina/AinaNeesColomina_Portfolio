@@ -57,10 +57,10 @@ input {
     margin-bottom: 4px;
 }
 
-#input-line span {
+/*#input-line span {
     margin-right: 8px;
     color: #00aa00;
-}
+}*/
 
 input:focus {
     text-shadow: 0 0 8px #00ff00;
