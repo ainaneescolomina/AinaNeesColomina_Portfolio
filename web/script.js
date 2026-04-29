@@ -3,7 +3,11 @@ const output = document.getElementById("output");
 
 function print(text) {
     text.split("\n").forEach(line => {
+        const div = document.createElement("div");
+
         div.innerHTML = formatLine(line);
+
+        output.appendChild(div);
     });
 
     output.scrollTop = output.scrollHeight;
@@ -44,13 +48,13 @@ function handleOutput(text) {
 function openProjectWindow(name) {
     const img = document.getElementById("preview-img");
 
-    img.style.opacity = 0.2;
+    img.style.opacity = 0;
 
     setTimeout(() => {
         img.src = `resources/${name}.png`;
         img.style.display = "block";
         img.style.opacity = 1;
-    }, 150);
+    }, 120);
 }
 
 input.addEventListener("keydown", function (e) {
