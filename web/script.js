@@ -42,15 +42,15 @@ function handleOutput(text) {
 }
 
 function openProjectWindow(name) {
-    const win = document.createElement("div");
-    win.className = "project-window";
+    const img = document.getElementById("preview-img");
 
-    win.innerHTML = `
-        <div class="window-header">${name}</div>
-        <img src="assets/${name}.png" />
-    `;
+    img.style.opacity = 0.2;
 
-    document.body.appendChild(win);
+    setTimeout(() => {
+        img.src = `resources/${name}.png`;
+        img.style.display = "block";
+        img.style.opacity = 1;
+    }, 150);
 }
 
 input.addEventListener("keydown", function (e) {

@@ -6,26 +6,51 @@ body {
     margin: 0;
 }
 
+#app {
+    display: flex;
+    height: 100vh;
+}
+
 #console {
-  padding: 20px;
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+#preview {
+    width: 40%;
+    border-left: 1px solid #00aa00;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#preview img {
+    max-width: 90%;
+    max-height: 90%;
+    display: none;
+    box-shadow: 0 0 20px #00ff00;
 }
 
 #input-line {
-  display: flex;
+    display: flex;
 }
 
 input {
-  background: black;
-  border: none;
-  color: #00ff00;
-  outline: none;
-  font-family: monospace;
-  flex: 1;
+    background: black;
+    border: none;
+    color: #00ff00;
+    outline: none;
+    font-family: monospace;
+    flex: 1;
 }
 
 #output {
     max-height: 80vh;
     overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #00aa00 black;
 }
 
 #output div {
@@ -35,4 +60,8 @@ input {
 #input-line span {
     margin-right: 8px;
     color: #00aa00;
+}
+
+input:focus {
+    text-shadow: 0 0 8px #00ff00;
 }
