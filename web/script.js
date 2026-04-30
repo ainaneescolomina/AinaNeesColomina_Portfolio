@@ -1,5 +1,6 @@
 const input = document.getElementById("input");
 const output = document.getElementById("output");
+const promptLabel = document.getElementById("prompt-label");
 
 function print(text) {
     text.split("\n").forEach(line => {
@@ -53,14 +54,19 @@ function openProjectWindow(name) {
 }
 
 function updatePrompt() {
-    const path = Module.ccall("get_current_path", "string", []);
-    promptLabel.innerText = path;
+    try {
+        if (promptLabel && typeof Module.ccall === 'function') {
+            const path = Module.ccall("get_current_path", "string", []);
+            promptLabel.innerText = path;
+        }
+    } catch (e) {
+        console.error("Error updating prompt:", e);
+    }
 }
 
 input.addEventListener("keydown", function (e) {
     if (e.key === "Enter") {
         const cmd = input.value.trim();
-        const promptLabel = document.getElementById("prompt-label");
         const currentPath = promptLabel ? promptLabel.innerText : "Root";
 
         print(currentPath + " > " + cmd);
@@ -69,5 +75,6 @@ input.addEventListener("keydown", function (e) {
         updatePrompt();
 
         input.value = "";
+        input.focus();
     }
 });
