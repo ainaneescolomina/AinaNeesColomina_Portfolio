@@ -60,7 +60,8 @@ function updatePrompt() {
 input.addEventListener("keydown", function (e) {
     if (e.key === "Enter") {
         const cmd = input.value.trim();
-        const currentPath = promptLabel.innerText;
+        const promptLabel = document.getElementById("prompt-label");
+        const currentPath = promptLabel ? promptLabel.innerText : "Root";
 
         print(currentPath + " > " + cmd);
 
