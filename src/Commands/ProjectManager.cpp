@@ -5,16 +5,19 @@ ProjectManager::ProjectManager()
     projects = {
         {
             "Galaga Engine",
+            "engine",
             "Custom C++ engine with rendering and systems.",
             "https://github.com/you/engine"
         },
         {
             "Roberto el lagarto",
+            "engine",
             "My final group project made in Unity for my Advanced Vocational Training \n I was part of the programming team",
             "https://store.steampowered.com/app/2938610/Roberto_el_Lagarto/"
         },
         {
             "Personal Proj",
+            "engine",
             "Web-based dev console using C++ + Emscripten.",
             "https://github.com/you/consoleSystem"
         }

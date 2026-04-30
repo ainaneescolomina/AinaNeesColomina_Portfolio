@@ -5,6 +5,7 @@
 struct Project
 {
     std::string name;
+    std::string imageName;
     std::string description;
     std::string githubLink;
 };

@@ -218,7 +218,7 @@ std::string CommandManager::handleProjectView(const std::string& cmd, State& sta
             "  > Description: " + project->description + "\n" +
             "  > Link:        " + project->githubLink + "\n" +
             "\n  (Generating preview window...)\n" +
-            "[OPEN_WINDOW:" + project->name + "]";
+            "[OPEN_WINDOW:" + project->imageName + "]";
     }
 
     if (cmd == "back") {
