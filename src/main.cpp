@@ -1,3 +1,9 @@
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#else
+#define EMSCRIPTEN_KEEPALIVE
+#endif
+
 #include <string>
 #include "Commands/CommandManager.h"
 #include "Utils/Utils.h"
@@ -8,6 +14,7 @@ static State state;
 
 extern "C" {
 
+    EMSCRIPTEN_KEEPALIVE
     const char* process_command(const char* input) {
         static std::string result;
 
@@ -26,6 +33,7 @@ extern "C" {
         return result.c_str();
     }
 
+    EMSCRIPTEN_KEEPALIVE
     const char* get_current_path() {
         static std::string path;
         path = commandManager.getPromptPath(state);

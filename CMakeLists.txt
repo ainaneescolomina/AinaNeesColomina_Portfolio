@@ -37,8 +37,8 @@ set_target_properties(${TARGET_NAME} PROPERTIES
 target_link_options(${TARGET_NAME} PRIVATE
     "-sALLOW_MEMORY_GROWTH"
 
-    "-sEXPORTED_FUNCTIONS=['_process_command']"
-    "-sEXPORTED_RUNTIME_METHODS=['ccall']"
+    "-sEXPORTED_RUNTIME_METHODS=['ccall','cwrap']"
+    "-sEXPORTED_FUNCTIONS=['_process_command','_get_current_path','_main']"
 
     "--preload-file" "${CMAKE_SOURCE_DIR}/resources@/resources"
 )

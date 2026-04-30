@@ -54,13 +54,14 @@ function openProjectWindow(name) {
 }
 
 function updatePrompt() {
-    try {
-        if (promptLabel && typeof Module.ccall === 'function') {
+    if (typeof Module !== 'undefined' && typeof Module.ccall === 'function') {
+        try {
             const path = Module.ccall("get_current_path", "string", []);
-            promptLabel.innerText = path;
+            const label = document.getElementById("prompt-label");
+            if (label) label.innerText = path;
+        } catch (e) {
+            console.warn("Path not ready yet:", e);
         }
-    } catch (e) {
-        console.error("Error updating prompt:", e);
     }
 }
 
