@@ -46,10 +46,18 @@ function openProjectWindow(name) {
     const img = document.getElementById("preview-img");
     img.style.transition = "opacity 0.5s ease-in-out";
     img.style.opacity = 0;
+    img.style.display = "block";
 
     setTimeout(() => {
         img.src = "resources/" + name + ".png";
-        img.onload = () => { img.style.opacity = 1; };
+
+        img.onload = () => {
+            img.style.opacity = 1;
+        };
+
+        img.onerror = () => {
+            console.error("Image failed to load:", img.src);
+        };
     }, 100);
 }
 

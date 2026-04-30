@@ -71,3 +71,17 @@ input:focus {
     color: #00ff00;
     white-space: nowrap;
 }
+
+a {
+    color: #00ff88;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    text-shadow: 0 0 8px #00ff88;
+}
+
+a:visited {
+    color: #00cc66;
+}

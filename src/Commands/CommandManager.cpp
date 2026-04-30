@@ -184,11 +184,12 @@ std::string CommandManager::handleProjects(const std::string& cmd, State& state)
         state.context = Context::PROJECT_VIEW;
         state.currentProject = name;
 
-        return header("PROJECT OPENED") +
-            "Name: " + project->name + "\n" +
-            "Description: " + project->description + "\n" +
-            "GitHub: " + project->githubLink +
-            "\n[OPEN_WINDOW:" + project->name + "]";
+        return header("PROJECT: " + project->name) +
+            "  > Status:      Completed\n" +
+            "  > Description: " + project->description + "\n" +
+            "  > Link:        " + project->githubLink + "\n" +
+            "\n  (Generating preview window...)\n" +
+            "[OPEN_WINDOW:" + project->imageName + "]";
     }
 
     if (cmd == "back") {
