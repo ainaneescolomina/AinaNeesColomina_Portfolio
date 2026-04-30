@@ -37,8 +37,9 @@ std::string CommandManager::handleRoot(const std::string& cmd, State& state)
         state.context = Context::ABOUT;
 
         return header("ABOUT") +
-            "Welcome to my portfolio\n"
-            "I'm a DAE student\n"
+            "Hi i'm Aina, welcome to my portfolio!\n"
+            "I'm a DAE student with a mix of C++ programming, 3D representation, and graphic design.\n"
+            "I like the intersection of tech and creativity, building things that not only work well but feel engaging and immersive.\n"
             "----------------------\n"
             "Type 'help' or 'back'";
     }
@@ -47,8 +48,8 @@ std::string CommandManager::handleRoot(const std::string& cmd, State& state)
         state.context = Context::CONTACT;
 
         return header("CONTACT") +
-            "Email: example@mail.com\n"
-            "GitHub: github.com/you\n"
+            "Email: ainaneescolomina@gmail.com\n"
+            "GitHub: https://github.com/ainaneescolomina\n"
             "Type 'back'";
     }
 
@@ -57,9 +58,9 @@ std::string CommandManager::handleRoot(const std::string& cmd, State& state)
 
         return header("PROJECTS") +
             "Available projects:\n"
-            "- engine\n"
-            "- project1\n"
-            "- consoleSystem\n\n"
+            "- Galaga Engine\n"
+            "- Roberto el lagarto\n"
+            "- Personal Proj\n\n"
             "Type 'open <name>' or 'back'";
     }
 
@@ -72,23 +73,32 @@ std::string CommandManager::handleAbout(const std::string& cmd, State& state)
         return header("ABOUT") +
             "Commands:\n"
             "- experience\n"
-            "- skills\n"
+            "- education\n"
             "- back";
     }
 
     if (cmd == "experience") {
         return header("EXPERIENCE") +
-            "- Game dev student\n"
-            "- C++ / SDL / WebAssembly\n"
-            "- Engine development focus";
+            "- Programming Intern\n"
+            "       at Space4Earth (2023 – 2024)\n"
+            "       Programming in C++ and Unity. 3D data representation.\n"
+            "- Content Editor\n"
+            "       at CLIJ magazine (2022 – 2023)\n"
+            "       Contributor to the bi-monthly youth magazine CLIJ. Personal column for video game recommendations.\n"
+            "- Graphic Design Intern\n"
+            "       at ACV Global (2022)\n"
+            "       Creation of social media content and graphic design work for the publisher's website and external clients.";
     }
 
-    if (cmd == "skills") {
-        return header("SKILLS") +
-            "- C++\n"
-            "- Engine architecture\n"
-            "- WebAssembly (Emscripten)\n"
-            "- SDL / graphics systems";
+    if (cmd == "education") {
+        return header("EDUCATION") +
+            "- Digital Arts and Entertainment, Game Development\n"
+            "       Howest DAE - (2024 – 2027)\n"
+            "- 3D Animation, Games and Interactive Environments, Professional Profile in Virtual Worlds,\n"
+            "Augmented Reality and Gamification (Advanced Vocational Training)\n"
+            "       Escola Sant Marc - (2022 – 2024)\n"
+            "- Interactive Graphic Product Assistance (Intermediate Vocational Training)\n"
+            "       CIC-Elisava - (2020 – 2022)";
     }
 
     if (cmd == "back") {

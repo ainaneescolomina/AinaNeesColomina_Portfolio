@@ -4,17 +4,17 @@ ProjectManager::ProjectManager()
 {
     projects = {
         {
-            "engine",
+            "Galaga Engine",
             "Custom C++ engine with rendering and systems.",
             "https://github.com/you/engine"
         },
         {
-            "dungeonCrawler",
-            "Procedural dungeon crawler with AI and combat.",
-            "https://github.com/you/dungeonCrawler"
+            "Roberto el lagarto",
+            "My final group project made in Unity for my Advanced Vocational Training \n I was part of the programming team",
+            "https://store.steampowered.com/app/2938610/Roberto_el_Lagarto/"
         },
         {
-            "consoleSystem",
+            "Personal Proj",
             "Web-based dev console using C++ + Emscripten.",
             "https://github.com/you/consoleSystem"
         }
