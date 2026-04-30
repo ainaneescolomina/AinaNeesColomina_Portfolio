@@ -53,11 +53,10 @@ jobs:
         run: |
           mkdir -p dist
 
-          # Copy Emscripten output
           cp build-web/portfolio.* dist/ || true
 
-          # Copy your custom web files (html/css/js)
           cp -r web/* dist/ || true
+          cp -r resources dist/resources || true
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
