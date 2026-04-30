@@ -43,22 +43,29 @@ function handleOutput(text) {
 
 function openProjectWindow(name) {
     const img = document.getElementById("preview-img");
-
-    img.style.opacity = 0.2;
+    img.style.transition = "opacity 0.5s ease-in-out";
+    img.style.opacity = 0;
 
     setTimeout(() => {
         img.src = "resources/" + name + ".png";
-        img.style.display = "block";
-        img.style.opacity = 1;
-    }, 1);
+        img.onload = () => { img.style.opacity = 1; };
+    }, 100);
+}
+
+function updatePrompt() {
+    const path = Module.ccall("get_current_path", "string", []);
+    promptLabel.innerText = path;
 }
 
 input.addEventListener("keydown", function (e) {
     if (e.key === "Enter") {
         const cmd = input.value.trim();
+        const currentPath = promptLabel.innerText;
 
-        print("> " + cmd);
+        print(currentPath + " > " + cmd);
+
         handleCommand(cmd);
+        updatePrompt();
 
         input.value = "";
     }

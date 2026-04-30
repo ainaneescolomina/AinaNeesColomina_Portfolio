@@ -22,9 +22,21 @@ std::string CommandManager::handle(const std::string& cmd, State& state) {
     }
 }
 
+std::string CommandManager::getPromptPath(const State& state)
+{
+    switch (state.context) {
+    case Context::ROOT:         return "Root";
+    case Context::ABOUT:        return "About";
+    case Context::CONTACT:      return "Contact";
+    case Context::PROJECTS:     return "Projects";
+    case Context::PROJECT_VIEW: return "Projects/" + state.currentProject;
+    default:                    return "Unknown";
+    }
+}
+
 std::string CommandManager::handleRoot(const std::string& cmd, State& state)
 {
-    if (cmd == "help") {
+    if (cmd == "help" || cmd == "ls") {
         return header("ROOT HELP") +
             "Available commands:\n"
             "- about\n"
@@ -69,7 +81,7 @@ std::string CommandManager::handleRoot(const std::string& cmd, State& state)
 
 std::string CommandManager::handleAbout(const std::string& cmd, State& state)
 {
-    if (cmd == "help") {
+    if (cmd == "help" || cmd == "ls") {
         return header("ABOUT") +
             "Commands:\n"
             "- experience\n"
@@ -111,7 +123,7 @@ std::string CommandManager::handleAbout(const std::string& cmd, State& state)
 
 std::string CommandManager::handleContact(const std::string& cmd, State& state)
 {
-    if (cmd == "help") {
+    if (cmd == "help" || cmd == "ls") {
         return header("CONTACT") +
             "Commands:\n"
             "- email\n"
@@ -139,13 +151,24 @@ std::string CommandManager::handleContact(const std::string& cmd, State& state)
 
 std::string CommandManager::handleProjects(const std::string& cmd, State& state)
 {
+    if (cmd == "help" || cmd == "ls") {
+        return header("PROJECTS") +
+            "Commands:\n"
+            "  list          -> Show all project names\n"
+            "  open <name>   -> View specific project details\n"
+            "  back          -> Return to main menu\n";
+    }
+
     if (cmd == "list") {
         std::string out = header("PROJECT LIST");
+        out += "Discover my latest work:\n\n"; // Added spacing
 
         for (const auto& p : projectManager.getProjects()) {
-            out += "- " + p.name + "\n";
+            // Added indentation and a bullet point style
+            out += "  [+] " + p.name + "\n";
         }
 
+        out += "\nType 'open <project name>' to see more.";
         return out;
     }
 
@@ -190,10 +213,12 @@ std::string CommandManager::handleProjectView(const std::string& cmd, State& sta
     }
 
     if (cmd == "info") {
-        return header("PROJECT INFO") +
-            "Name: " + project->name + "\n\n" +
-            "Description:\n" + project->description + "\n\n" +
-            "GitHub:\n" + project->githubLink;
+        return header("PROJECT: " + project->name) +
+            "  > Status:      Completed\n" +
+            "  > Description: " + project->description + "\n" +
+            "  > Link:        " + project->githubLink + "\n" +
+            "\n  (Generating preview window...)\n" +
+            "[OPEN_WINDOW:" + project->name + "]";
     }
 
     if (cmd == "back") {

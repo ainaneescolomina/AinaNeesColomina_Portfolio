@@ -9,6 +9,8 @@ public:
 
     std::string handle(const std::string& cmd, State& state);
 
+    std::string getPromptPath(const State& state);
+
 private:
     ProjectManager projectManager{};
 

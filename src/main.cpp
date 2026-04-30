@@ -26,6 +26,12 @@ extern "C" {
         return result.c_str();
     }
 
+    const char* get_current_path() {
+        static std::string path;
+        path = commandManager.getPromptPath(state);
+        return path.c_str();
+    }
+
 }
 
 int main() {

@@ -34,6 +34,8 @@ body {
 
 #input-line {
     display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 input {
@@ -63,4 +65,9 @@ input {
 
 input:focus {
     text-shadow: 0 0 8px #00ff00;
+}
+
+#prompt-label {
+    color: #00ff00;
+    white-space: nowrap;
 }
